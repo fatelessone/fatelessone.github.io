@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  page: number;
+  totalPages: number;
+}
+
+const { posts, page, totalPages } = Astro.props;
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+const pageHref = (pageNumber: number) => (pageNumber === 1 ? '/' : `/page/${pageNumber}`);
+---
+
+<section class="latest-posts" aria-labelledby="latest-posts">
+  <div class="section-heading">
+    <h2 id="latest-posts">最近更新</h2>
+    <span>PAGE {page.toString().padStart(2, '0')} / {totalPages.toString().padStart(2, '0')}</span>
+  </div>
+  {
+    posts.length > 0 ? (
+      <div class="post-list scrollable-post-list" tabindex="0" aria-label="文章列表，可滚动浏览">
+        {posts.map((post, index) => (
+          <article class="post-card">
+            <span class="post-index">{((page - 1) * 6 + index + 1).toString().padStart(2, '0')}</span>
+            <div>
+              <p class="post-date">{formatDate(post.data.pubDate)}</p>
+              <h3><a href={`/blog/${post.id}`}>{post.data.title}</a></h3>
+              <p>{post.data.description}</p>
+              {post.data.tags.length > 0 && (
+                <ul class="tag-list" aria-label="文章标签">
+                  {post.data.tags.map((tag) => <li><a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a></li>)}
+                </ul>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <p>还没有发布文章。请前往 <code>src/content/blog/</code> 新建 Markdown 文件。</p>
+    )
+  }
+
+  <nav class="pagination" aria-label="文章分页">
+    {page > 1 ? <a href={pageHref(page - 1)}>← 上一页</a> : <span>← 上一页</span>}
+    <div class="page-numbers">
+      {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) =>
+        pageNumber === page ? (
+          <span class="is-current" aria-current="page">{pageNumber}</span>
+        ) : (
+          <a href={pageHref(pageNumber)}>{pageNumber}</a>
+        ),
+      )}
+    </div>
+    {page < totalPages ? <a href={pageHref(page + 1)}>下一页 →</a> : <span>下一页 →</span>}
+  </nav>
+</section>

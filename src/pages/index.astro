@@ -1,17 +1,30 @@
 ---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostFeed from '../components/PostFeed.astro';
+import SiteRail from '../components/SiteRail.astro';
 
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b) => a.localeCompare(b, 'zh-CN'));
+const postsPerPage = 6;
+const totalPages = Math.max(1, Math.ceil(posts.length / postsPerPage));
+const visiblePosts = posts.slice(0, postsPerPage);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Fatelessone 的博客" description="记录想法、经验与正在学习的事。">
+  <div class="home-grid">
+    <section class="home-content">
+      <header class="hero">
+        <p class="eyebrow">PERSONAL NOTES · {new Date().getFullYear()}</p>
+        <h1>很喜欢这个名字：Fatelessone。命运无主 未来掌握在自己手里。</h1>
+        <p>这里是 Fatelessone 的个人存档：记录自己学习过程中的一些心得体会。</p>
+      </header>
+      <PostFeed posts={visiblePosts} page={1} totalPages={totalPages} />
+    </section>
+
+    <SiteRail posts={posts} tags={tags} />
+  </div>
+</BaseLayout>

@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b) => a.localeCompare(b, 'zh-CN'));
+---
+
+<BaseLayout title="标签 | Fatelessone 的博客" description="按标签浏览博客文章。">
+  <section class="page-intro">
+    <p class="eyebrow">TOPICS</p>
+    <h1>标签</h1>
+    <p>用主题找到感兴趣的文章。</p>
+  </section>
+  {
+    tags.length > 0 ? (
+      <ul class="tag-directory">
+        {tags.map((tag) => <li><a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a></li>)}
+      </ul>
+    ) : (
+      <p>尚未添加标签。</p>
+    )
+  }
+</BaseLayout>

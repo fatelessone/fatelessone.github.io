@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  tags: string[];
+}
+
+const { posts, tags } = Astro.props;
+const featuredTags = tags.slice(0, 8);
+---
+
+<aside class="profile-rail" aria-label="博客信息">
+  <section class="profile-card">
+    <div class="profile-heading">
+      <a class="profile-avatar-link" href="/about" aria-label="查看关于 Fatelessone 的介绍">
+        <img class="profile-avatar" src="/avatar.jpg" alt="任我行专辑封面插画" width="1080" height="1080" />
+      </a>
+      <div>
+        <p class="eyebrow">HELLO, I AM</p>
+        <h2><a href="/about">Fatelessone</a></h2>
+        <p>做过的梦还倒背如流。</p>
+      </div>
+    </div>
+    <a class="text-link" href="/about">关于这个人 <span aria-hidden="true">→</span></a>
+  </section>
+
+  <section class="rail-section">
+    <p class="rail-title">BLOG INDEX</p>
+    <dl class="site-stats">
+      <div><dt>文章</dt><dd>{posts.length.toString().padStart(2, '0')}</dd></div>
+      <div><dt>标签</dt><dd>{tags.length.toString().padStart(2, '0')}</dd></div>
+    </dl>
+  </section>
+
+  {featuredTags.length > 0 && (
+    <section class="rail-section">
+      <p class="rail-title">常用标签</p>
+      <ul class="tag-list" aria-label="博客标签">
+        {featuredTags.map((tag) => <li><a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a></li>)}
+      </ul>
+      {tags.length > featuredTags.length && <a class="all-tags-link" href="/tags">查看全部 {tags.length} 个标签 →</a>}
+    </section>
+  )}
+</aside>

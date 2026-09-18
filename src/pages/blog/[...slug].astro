@@ -1,0 +1,41 @@
+---
+import { getCollection, render } from 'astro:content';
+import SiteRail from '../../components/SiteRail.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const tags = [...new Set(allPosts.flatMap((entry) => entry.data.tags))].sort((a, b) => a.localeCompare(b, 'zh-CN'));
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title={`${post.data.title} | Fatelessone 的博客`} description={post.data.description}>
+  <div class="home-grid article-grid">
+    <article class="article home-content">
+      <a class="back-link" href="/">← 所有文章</a>
+      <header class="article-header">
+        <p class="post-date">发布于 {formatDate(post.data.pubDate)}</p>
+        <h1>{post.data.title}</h1>
+        <p class="article-description">{post.data.description}</p>
+        {
+          post.data.tags.length > 0 && (
+            <ul class="tag-list" aria-label="文章标签">
+              {post.data.tags.map((tag) => <li><a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a></li>)}
+            </ul>
+          )
+        }
+      </header>
+      <div class="prose"><Content /></div>
+    </article>
+    <SiteRail posts={allPosts} tags={tags} />
+  </div>
+</BaseLayout>
