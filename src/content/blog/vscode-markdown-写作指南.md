@@ -1,7 +1,7 @@
 ---
 title: 在 VS Code 中写 Markdown：从第一行到发布博客
 description: 一份可以边看边练的 Markdown 写作手册：文件、预览、全部常用语法、图片、表格与在本博客中的发布流程。
-pubDate: 2026-09-19
+pubDate: 2025-07-26
 tags: [VS Code, Markdown, 教程, 写作]
 ---
 

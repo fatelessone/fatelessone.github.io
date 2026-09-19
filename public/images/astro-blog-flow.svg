@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">Astro Markdown 博客的制作流程</title><desc id="desc">从准备 Node.js、创建 Astro 项目、写 Markdown、在本地预览、构建，到 Git 推送和持续部署。</desc>
+  <rect width="1200" height="320" fill="#fbfaf4"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <g fill="#f2ead7" stroke="#4e7773" stroke-width="3"><rect x="20" y="109" width="155" height="96" rx="12"/><rect x="215" y="109" width="155" height="96" rx="12"/><rect x="410" y="109" width="155" height="96" rx="12"/><rect x="605" y="109" width="155" height="96" rx="12"/><rect x="800" y="109" width="155" height="96" rx="12"/><rect x="995" y="109" width="155" height="96" rx="12"/></g>
+    <g fill="#1f2726" font-size="19" font-weight="700"><text x="98" y="150">Node.js</text><text x="292" y="150">Create Astro</text><text x="488" y="150">Write Markdown</text><text x="682" y="150">Local Preview</text><text x="878" y="150">Build</text><text x="1073" y="150">Deploy</text></g>
+    <g fill="#58736f" font-size="15"><text x="98" y="178">environment</text><text x="292" y="178">project files</text><text x="488" y="178">content folder</text><text x="682" y="178">npm run dev</text><text x="878" y="178">dist/ output</text><text x="1073" y="178">Git provider</text></g>
+    <g stroke="#9a3b32" stroke-width="4" fill="none"><path d="M180 157h25m-10-10 10 10-10 10"/><path d="M375 157h25m-10-10 10 10-10 10"/><path d="M570 157h25m-10-10 10 10-10 10"/><path d="M765 157h25m-10-10 10 10-10 10"/><path d="M960 157h25m-10-10 10 10-10 10"/></g>
+  </g>
+</svg>

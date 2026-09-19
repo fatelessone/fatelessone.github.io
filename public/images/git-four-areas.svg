@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
+  <title id="title">Git 的四个工作区域</title><desc id="desc">工作目录、暂存区、本地仓库和远程仓库，通过 add、commit、push 和 pull 连接。</desc>
+  <rect width="1200" height="300" fill="#fbfaf4"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <g fill="#f2ead7" stroke="#4e7773" stroke-width="3">
+      <rect x="25" y="93" width="230" height="112" rx="12"/><rect x="325" y="93" width="230" height="112" rx="12"/>
+      <rect x="625" y="93" width="230" height="112" rx="12"/><rect x="925" y="93" width="230" height="112" rx="12"/>
+    </g>
+    <g fill="#1f2726" font-size="23" font-weight="700"><text x="140" y="137">Working Directory</text><text x="440" y="137">Staging Area</text><text x="740" y="137">Local Repository</text><text x="1040" y="137">Remote Repository</text></g>
+    <g fill="#58736f" font-size="17"><text x="140" y="169">your edited files</text><text x="440" y="169">selected changes</text><text x="740" y="169">commit history</text><text x="1040" y="169">shared copy</text></g>
+    <g stroke="#9a3b32" stroke-width="4" fill="none"><path d="M265 149h48m-12-12 12 12-12 12"/><path d="M565 149h48m-12-12 12 12-12 12"/><path d="M865 149h48m-12-12 12 12-12 12"/></g>
+    <g fill="#9a3b32" font-size="18" font-weight="700"><text x="290" y="75">git add</text><text x="590" y="75">git commit</text><text x="890" y="75">git push</text><text x="890" y="252">git fetch / pull ←</text></g>
+  </g>
+</svg>
